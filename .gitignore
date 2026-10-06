@@ -1,0 +1,9 @@
+# Build output
+tomoporo
+
+# Personal logs
+tomoporo-log.json
+tomoporo-log.md
+
+# macOS junk
+.DS_Store

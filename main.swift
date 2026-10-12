@@ -226,10 +226,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         UserDefaults.standard.register(defaults: ["workMinutes": 25, "restMinutes": 5, "fireworksEnabled": true])
 
-        let baseDir = URL(fileURLWithPath: CommandLine.arguments[0])
-            .resolvingSymlinksInPath()
-            .deletingLastPathComponent()
-        log = LogStore(directory: baseDir)
+        let supportDir = FileManager.default
+            .urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("Tomoporo", isDirectory: true)
+        try? FileManager.default.createDirectory(at: supportDir, withIntermediateDirectories: true)
+        log = LogStore(directory: supportDir)
 
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         if let button = statusItem.button {
@@ -443,12 +444,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func updateTitle(remaining: TimeInterval? = nil) {
         let title: String
         if let paused = pausedRemaining {
-            title = (phase == .work ? "⏸🍅 " : "⏸☕ ") + clock(paused)
+            title = (phase == .work ? "⏸🍅" : "⏸☕") + clock(paused)
         } else {
             switch phase {
             case .idle: title = "🍅"
-            case .work: title = "🍅 " + clock(remaining ?? workSeconds)
-            case .rest: title = "☕ " + clock(remaining ?? restSeconds)
+            case .work: title = "🍅" + clock(remaining ?? workSeconds)
+            case .rest: title = "☕" + clock(remaining ?? restSeconds)
             }
         }
         statusItem.button?.title = title

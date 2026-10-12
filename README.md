@@ -13,7 +13,7 @@ A tiny native macOS **menu bar Pomodoro timer** written in a single Swift file. 
 
 ## The log
 
-Two files are written next to the binary:
+Two files are written to `~/Library/Application Support/Tomoporo/`:
 
 - `tomoporo-log.md` — human-readable, e.g.
 
@@ -31,15 +31,15 @@ Open it anytime from the menu: **Open Log**.
 Requires macOS with the Xcode Command Line Tools (`xcode-select --install`).
 
 ```bash
-swiftc -O -swift-version 5 -o tomoporo main.swift
-./tomoporo
+./build.sh            # builds Tomoporo.app in this folder
+./build.sh --install  # builds and installs to /Applications (Spotlight: search "Tomoporo")
 ```
 
-Look for the 🍅 in your menu bar.
+Then launch it via Spotlight (`Cmd+Space`, type `Tomoporo`) or `open Tomoporo.app`. Look for the 🍅 in your menu bar.
 
 ## Start at login (optional)
 
-Create `~/Library/LaunchAgents/com.kkbest.tomoporo.plist` (adjust the path to where you keep the binary):
+Create `~/Library/LaunchAgents/com.kkbest.tomoporo.plist`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -50,7 +50,7 @@ Create `~/Library/LaunchAgents/com.kkbest.tomoporo.plist` (adjust the path to wh
     <string>com.kkbest.tomoporo</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/path/to/tomoporo</string>
+        <string>/Applications/Tomoporo.app/Contents/MacOS/tomoporo</string>
     </array>
     <key>RunAtLoad</key>
     <true/>

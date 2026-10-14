@@ -26,13 +26,26 @@ Two files are written to `~/Library/Application Support/Tomoporo/`:
 
 Open it anytime from the menu: **Open Log**.
 
-## Build & run
+## Install (no build tools needed)
+
+1. Download `Tomoporo.zip` from the [latest release](https://github.com/Saung1029/tomoporo/releases/latest) (Apple Silicon Macs)
+2. Unzip it and move **Tomoporo.app** into your `/Applications` folder
+3. Because the app isn't signed with an Apple Developer certificate, macOS quarantines it on first launch — remove the quarantine flag once:
+
+   ```bash
+   xattr -cr /Applications/Tomoporo.app
+   ```
+
+4. Launch it from Spotlight (`Cmd+Space`, type `Tomoporo`) — the 🍅 appears in your menu bar
+
+## Build from source
 
 Requires macOS with the Xcode Command Line Tools (`xcode-select --install`).
 
 ```bash
-./build.sh            # builds Tomoporo.app in this folder
-./build.sh --install  # builds and installs to /Applications (Spotlight: search "Tomoporo")
+git clone https://github.com/Saung1029/tomoporo.git
+cd tomoporo
+./build.sh --install  # builds and installs to /Applications
 ```
 
 Then launch it via Spotlight (`Cmd+Space`, type `Tomoporo`) or `open Tomoporo.app`. Look for the 🍅 in your menu bar.

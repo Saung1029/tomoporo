@@ -8,3 +8,6 @@ tomoporo-log.md
 
 # macOS junk
 .DS_Store
+
+# Release artifact
+Tomoporo.zip
